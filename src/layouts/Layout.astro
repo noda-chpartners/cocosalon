@@ -1,0 +1,164 @@
+---
+import '../styles/global.css';
+import 'lenis/dist/lenis.css';
+import { faqs, menus, salon } from '../data/salon';
+
+const title = 'Coco salon（ココサロン）｜横浜駅東口のハーブピーリング・個室フェイシャル';
+const description =
+	'横浜駅東口徒歩4分、横浜東口ビルの完全予約制フェイシャルサロン。個室・ベッド1台でハーブピーリング、毛穴洗浄、陶肌ピール、エステ版リジュラン導入をマンツーマンで。10:00–19:00、祝日定休。';
+
+const site = Astro.site;
+const pageUrl = site ? new URL(Astro.url.pathname, site).href : undefined;
+const imageUrl = site ? new URL('/ogp.jpg', site).href : '/ogp.jpg';
+const businessId = pageUrl ? `${pageUrl}#business` : '#business';
+
+const offers = menus.flatMap((menu) =>
+	menu.prices.map((price) => ({
+		'@type': 'Offer',
+		name: `${menu.name}（${price.label}）`,
+		priceCurrency: 'JPY',
+		url: salon.reserveUrl,
+		...('from' in price && price.from
+			? {
+					priceSpecification: {
+						'@type': 'PriceSpecification',
+						priceCurrency: 'JPY',
+						minPrice: price.amount,
+					},
+				}
+			: { price: String(price.amount) }),
+		itemOffered: {
+			'@type': 'Service',
+			name: menu.name,
+			description: menu.text,
+			provider: { '@id': businessId },
+			areaServed: '横浜市',
+		},
+	})),
+);
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'BeautySalon',
+			'@id': businessId,
+			name: salon.name,
+			alternateName: salon.alternateName,
+			description,
+			url: pageUrl,
+			image: imageUrl,
+			telephone: salon.telephone,
+			priceRange: '¥8,900〜',
+			currenciesAccepted: 'JPY',
+			paymentAccepted: '現金, クレジットカード, 交通系IC, PayPay, QRコード',
+			address: {
+				'@type': 'PostalAddress',
+				postalCode: salon.postalCode,
+				addressRegion: salon.addressRegion,
+				addressLocality: salon.addressLocality,
+				streetAddress: salon.streetAddress,
+				addressCountry: 'JP',
+			},
+			openingHoursSpecification: {
+				'@type': 'OpeningHoursSpecification',
+				dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+				opens: salon.opens,
+				closes: salon.closes,
+			},
+			hasMap: salon.mapUrl,
+			sameAs: [salon.instagramUrl, salon.lineUrl, salon.reserveUrl],
+			areaServed: {
+				'@type': 'City',
+				name: '横浜市',
+				containedInPlace: { '@type': 'AdministrativeArea', name: '神奈川県' },
+			},
+			slogan: '肌と、静かに向き合う時間。',
+			hasOfferCatalog: {
+				'@type': 'OfferCatalog',
+				name: 'フェイシャルメニュー',
+				itemListElement: offers,
+			},
+			potentialAction: {
+				'@type': 'ReserveAction',
+				name: 'ホットペッパービューティーで予約',
+				target: salon.reserveUrl,
+			},
+		},
+		...(pageUrl
+			? [
+					{
+						'@type': 'WebPage',
+						'@id': `${pageUrl}#webpage`,
+						url: pageUrl,
+						name: title,
+						description,
+						inLanguage: 'ja',
+						isPartOf: { '@type': 'WebSite', name: salon.name, url: new URL('/', site).href },
+						about: { '@id': businessId },
+						primaryImageOfPage: imageUrl,
+					},
+				]
+			: []),
+		{
+			'@type': 'FAQPage',
+			mainEntity: faqs.map((item) => ({
+				'@type': 'Question',
+				name: item.q,
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: item.a,
+				},
+			})),
+		},
+	],
+};
+
+const jsonLdText = JSON.stringify(jsonLd).replaceAll('<', '\\u003c');
+---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="theme-color" content="#faf8f5" />
+		<meta name="format-detection" content="telephone=no" />
+		{pageUrl && <link rel="canonical" href={pageUrl} />}
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="ja_JP" />
+		<meta property="og:site_name" content="Coco salon" />
+		{pageUrl && <meta property="og:url" content={pageUrl} />}
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Coco salonの施術室。ベージュのベッドと赤と白のバラ" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageUrl} />
+		<meta name="twitter:image:alt" content="Coco salonの施術室。ベージュのベッドと赤と白のバラ" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap"
+			rel="stylesheet"
+		/>
+		<script is:inline>
+			document.documentElement.classList.add('js');
+		</script>
+		<script type="application/ld+json" set:html={jsonLdText} />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

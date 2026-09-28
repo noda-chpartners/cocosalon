@@ -1,17 +1,556 @@
 ---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { faqs, menus, salon } from '../data/salon';
+import logo from '../assets/images/logo.png';
+import room from '../assets/images/image_264241820747200441_0_upscayl_2x_upscayl-standard-4x.png';
+import roses from '../assets/images/image_2186693464944004969_0_upscayl_2x_upscayl-standard-4x.png';
+import vanity from '../assets/images/image_6104639947386332681_0_upscayl_2x_upscayl-standard-4x.png';
+import chandelier from '../assets/images/image_865192237579305801_0_upscayl_2x_upscayl-standard-4x.png';
+import roseWall from '../assets/images/image_8212098617876142231_0_upscayl_2x_upscayl-standard-4x.png';
+import staff from '../assets/images/image_8091722040638316793_0_upscayl_2x_upscayl-standard-4x.png';
+import products from '../assets/images/image_5817300789594492079_0_upscayl_2x_upscayl-standard-4x.png';
+import resultTexture from '../assets/images/image_1731246233020699459_0.jpg';
+import resultPore from '../assets/images/image_5359149803033910425_0.jpg';
+import resultCheek from '../assets/images/image_4639462016730260242_0.jpg';
+import resultLine from '../assets/images/image_363441043449644231_0.jpg';
 
+const { reserveUrl, lineUrl, instagramUrl, mapUrl, mapEmbed, telephoneDisplay, telephoneHref } = salon;
+
+const results = [
+	{ src: resultTexture, alt: '頬の肌を上下に並べた施術前後の写真', caption: '肌のキメ', note: 'Cheek' },
+	{ src: resultPore, alt: '小鼻まわりを上下に並べた施術前後の写真', caption: '小鼻まわり', note: 'Nose' },
+	{ src: resultCheek, alt: '頬の肌表面を上下に並べた施術前後の写真', caption: '頬の肌表面', note: 'Skin' },
+	{ src: resultLine, alt: '横顔のフェイスラインを上下に並べた施術前後の写真', caption: 'フェイスライン', note: 'Line' },
+];
+
+const steps = [
+	{ no: '01', name: 'ご予約', text: 'ホットペッパー、またはLINEから。完全予約制です。' },
+	{ no: '02', name: 'カウンセリング', text: '肌の状態と気になる点を確認し、その日の内容を決めます。' },
+	{ no: '03', name: '施術', text: '個室でマンツーマン。ベッドはひとつだけです。' },
+	{ no: '04', name: 'アフターケア', text: '保湿と紫外線対策、ホームケアをご案内します。' },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+	<a class="skip" href="#main">本文へスキップ</a>
+
+	<header class="header">
+		<div class="header-inner">
+			<a class="brand" href="#top">
+				<Image src={logo} alt="" class="seal" widths={[84, 126]} sizes="42px" />
+				<span class="brand-name">
+					<span class="brand-en">Coco salon</span>
+					<span class="brand-ja">ココサロン</span>
+				</span>
+			</a>
+			<nav class="nav-desktop" aria-label="メイン">
+				<a href="#concept">コンセプト</a>
+				<a href="#menu">メニュー</a>
+				<a href="#salon">サロン</a>
+				<a href="#flow">流れ</a>
+				<a href="#access">アクセス</a>
+			</nav>
+			<a class="btn btn-dark header-reserve" href={reserveUrl} target="_blank" rel="noopener noreferrer">
+				予約する
+				<Icon name="arrow" />
+				<span class="sr-only">（新しいタブで開きます）</span>
+			</a>
+			<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel" aria-label="メニューを開く">
+				<span class="icon-menu"><Icon name="menu" /></span>
+				<span class="icon-close"><Icon name="close" /></span>
+			</button>
+		</div>
+	</header>
+
+	<div class="nav-panel" id="nav-panel" aria-hidden="true" inert>
+		<nav aria-label="メニュー">
+			<a href="#concept"><small>01</small>コンセプト</a>
+			<a href="#menu"><small>02</small>メニュー</a>
+			<a href="#salon"><small>03</small>サロン</a>
+			<a href="#flow"><small>04</small>流れ</a>
+			<a href="#access"><small>05</small>アクセス</a>
+		</nav>
+		<div class="nav-panel-foot">
+			<a class="btn btn-dark" href={reserveUrl} target="_blank" rel="noopener noreferrer">
+				予約する
+				<Icon name="arrow" />
+				<span class="sr-only">（新しいタブで開きます）</span>
+			</a>
+			<a class="btn btn-outline" href={lineUrl} target="_blank" rel="noopener noreferrer">
+				<Icon name="chat" />
+				LINE
+				<span class="sr-only">（新しいタブで開きます）</span>
+			</a>
+		</div>
+	</div>
+
+	<main id="main">
+		<section class="hero" id="top">
+			<div class="hero-frame">
+				<Image
+					src={room}
+					alt="Coco salonの施術室。窓辺のベージュのベッドと、赤と白のバラ"
+					widths={[640, 960, 1280, 1600, 2000]}
+					sizes="100vw"
+					quality={72}
+					loading="eager"
+					fetchpriority="high"
+					class="cover hero-img"
+				/>
+				<div class="hero-shade" aria-hidden="true"></div>
+				<p class="hero-tag hero-anim">横浜駅東口<br />徒歩4分</p>
+				<div class="hero-inner">
+					<p class="hero-eyebrow hero-anim">Private facial salon</p>
+					<h1 class="hero-anim">
+						<span class="display">Coco salon</span>
+						<span class="hero-ja">肌と、静かに向き合う時間。</span>
+					</h1>
+					<ul class="pills hero-anim">
+						<li>完全予約制</li>
+						<li>個室 / ベッド1台</li>
+						<li>マンツーマン</li>
+						<li>男性歓迎</li>
+					</ul>
+					<div class="hero-actions hero-anim">
+						<a class="btn btn-white" href={reserveUrl} target="_blank" rel="noopener noreferrer">
+							Webで予約
+							<Icon name="arrow" />
+							<span class="sr-only">（新しいタブで開きます）</span>
+						</a>
+						<a class="btn btn-outline-light" href={lineUrl} target="_blank" rel="noopener noreferrer">
+							<Icon name="chat" />
+							LINEで相談
+							<span class="sr-only">（新しいタブで開きます）</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="intro">
+			<div class="wrap intro-grid">
+				<p class="intro-lead reveal">
+					横浜駅東口から徒歩4分。白い個室に、ベッドはひとつ。ハーブピーリングを軸に、その日の肌に必要なケアだけを、マンツーマンでお届けします。
+				</p>
+				<dl class="stats">
+					<div class="reveal">
+						<dt>Bed</dt>
+						<dd>1<small>台</small></dd>
+					</div>
+					<div class="reveal">
+						<dt>Walk</dt>
+						<dd>4<small>分</small></dd>
+					</div>
+					<div class="reveal">
+						<dt>Open</dt>
+						<dd>10–19</dd>
+					</div>
+				</dl>
+			</div>
+		</section>
+
+		<section class="section" id="concept">
+			<div class="wrap concept-grid">
+				<div class="concept-visual reveal">
+					<div class="frame card-a parallax">
+						<Image
+							src={roses}
+							alt="施術ベッドのファーの上に置かれた赤と白のバラ"
+							widths={[480, 800, 1100]}
+							sizes="(min-width: 900px) 38vw, 74vw"
+							quality={74}
+							class="cover"
+						/>
+					</div>
+					<div class="frame card-b">
+						<Image
+							src={vanity}
+							alt="丸い照明付きミラーとゴールドの取手が付いた白いドレッサー"
+							widths={[400, 640, 900]}
+							sizes="(min-width: 900px) 26vw, 50vw"
+							quality={72}
+							class="cover"
+						/>
+					</div>
+				</div>
+				<div class="concept-text">
+					<p class="eyebrow reveal">Concept</p>
+					<h2 class="title reveal">剥がすだけではなく、<br />整えながら育てる。</h2>
+					<p class="lead reveal">
+						Coco salonは、ハーブピーリングを軸にしたプライベートフェイシャルサロンです。植物由来の酵素と陶肌パウダーを肌状態に合わせて組み合わせ、毛穴・くすみ・ハリ・フェイスラインまで丁寧に整えます。
+					</p>
+					<p class="lead reveal">初めての方も、敏感なお肌の方も、男性の方も。必要なケアだけを、個室で静かに。</p>
+					<ul class="check-list reveal">
+						<li><Icon name="check" />完全予約制</li>
+						<li><Icon name="check" />マンツーマン施術</li>
+						<li><Icon name="check" />個室 / ベッド1台</li>
+						<li><Icon name="check" />男性歓迎</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="section menu" id="menu">
+			<div class="wrap">
+				<div class="head-row">
+					<div>
+						<p class="eyebrow reveal">Menu</p>
+						<h2 class="title reveal">人気の施術</h2>
+					</div>
+					<p class="head-note reveal">気になる肌悩みに合わせてお選びください。詳細と空き状況は予約ページでご確認いただけます。</p>
+				</div>
+				<div class="menu-grid">
+					{
+						menus.map((item) => (
+							<article class="menu-card reveal">
+								<p class="menu-no">{item.no}</p>
+								{item.tag && <p class="menu-tag">{item.tag}</p>}
+								<h3>{item.name}</h3>
+								<p class="desc">{item.text}</p>
+								<div class="price-list">
+									{item.prices.map((price) => (
+										<p>
+											<span class="lab">{price.label}</span>
+											<strong>{price.value}</strong>
+											<em>{price.time}</em>
+										</p>
+									))}
+								</div>
+							</article>
+						))
+					}
+					<a class="menu-card menu-card-cta reveal" href={reserveUrl} target="_blank" rel="noopener noreferrer">
+						<div>
+							<p class="menu-no">All</p>
+							<h3>すべてのメニューと<br />空き状況を見る</h3>
+							<p class="desc">ホットペッパービューティーの予約ページへ移動します。</p>
+						</div>
+						<span class="cta-arrow"><Icon name="arrow" /></span>
+						<span class="sr-only">（新しいタブで開きます）</span>
+					</a>
+				</div>
+				<p class="note">
+					表示は目安です。肌状態により内容や料金が変わる場合があります。効果には個人差があり、いずれもエステティック施術です。医療行為ではありません。
+				</p>
+			</div>
+		</section>
+
+		<section class="section" id="records" aria-labelledby="records-title">
+			<div class="wrap">
+				<div class="head-row">
+					<div>
+						<p class="eyebrow reveal">Before / After</p>
+						<h2 id="records-title" class="title reveal">施術の記録</h2>
+					</div>
+					<p class="head-note reveal">肌の状態や回数によって、変化の現れ方は異なります。写真は一例です。</p>
+				</div>
+				<div class="records-track">
+					{
+						results.map((item) => (
+							<figure class="record reveal">
+								<div class="frame">
+									<Image src={item.src} alt={item.alt} widths={[360, 540, 720]} sizes="270px" quality={78} class="cover" />
+									<span class="ba ba-before" aria-hidden="true">Before</span>
+									<span class="ba ba-after" aria-hidden="true">After</span>
+								</div>
+								<figcaption>
+									{item.caption}
+									<span>{item.note}</span>
+								</figcaption>
+							</figure>
+						))
+					}
+				</div>
+				<p class="note">効果には個人差があります。エステティック施術であり、医療行為ではありません。</p>
+			</div>
+		</section>
+
+		<section class="section" id="salon">
+			<div class="wrap">
+				<div class="head-row">
+					<div>
+						<p class="eyebrow reveal">Salon</p>
+						<h2 class="title reveal">光の入る、白い個室。</h2>
+					</div>
+					<p class="head-note reveal">横浜東口ビルの一室。窓の光、シャンデリア、花。施術に集中できるよう、ベッドは1台だけをご用意しています。</p>
+				</div>
+				<div class="gallery">
+					<figure class="g1 reveal">
+						<div class="frame parallax">
+							<Image
+								src={room}
+								alt="窓辺の施術ベッドと、赤と白のバラ"
+								widths={[640, 960, 1280]}
+								sizes="(min-width: 900px) 58vw, 50vw"
+								quality={72}
+								class="cover"
+							/>
+						</div>
+						<figcaption>施術室</figcaption>
+					</figure>
+					<figure class="g2 reveal">
+						<div class="frame parallax">
+							<Image
+								src={staff}
+								alt="白いコートを着たCoco salonの施術者"
+								widths={[480, 800, 1100]}
+								sizes="(min-width: 900px) 42vw, 50vw"
+								quality={74}
+								class="cover"
+								style="object-position: center 15%"
+							/>
+						</div>
+						<figcaption>マンツーマン施術</figcaption>
+					</figure>
+					<figure class="g3 reveal">
+						<div class="frame parallax">
+							<Image
+								src={chandelier}
+								alt="クリスタルのシャンデリアと、その下に見える赤いバラの壁"
+								widths={[480, 800, 1100]}
+								sizes="(min-width: 900px) 34vw, 50vw"
+								quality={72}
+								class="cover"
+								style="object-position: center 30%"
+							/>
+						</div>
+						<figcaption>シャンデリア</figcaption>
+					</figure>
+					<figure class="g4 reveal">
+						<div class="frame parallax">
+							<Image
+								src={roseWall}
+								alt="赤いバラで覆われた壁"
+								widths={[480, 800, 1100]}
+								sizes="(min-width: 900px) 26vw, 50vw"
+								quality={70}
+								class="cover"
+							/>
+						</div>
+						<figcaption>フラワーウォール</figcaption>
+					</figure>
+				</div>
+				<p class="note">キッズスペースはありません。施術中、お一人で待てるお子様の同伴は可能です。</p>
+			</div>
+		</section>
+
+		<section class="section" id="flow">
+			<div class="wrap">
+				<div class="head-row">
+					<div>
+						<p class="eyebrow reveal">Flow</p>
+						<h2 class="title reveal">ご来店の流れ</h2>
+					</div>
+					<p class="head-note reveal">初回はカウンセリングを含め、少し長めにお時間をいただきます。</p>
+				</div>
+				<div class="flow-grid">
+					{
+						steps.map((step) => (
+							<div class="step reveal">
+								<p class="step-no">{step.no}</p>
+								<h3>{step.name}</h3>
+								<p>{step.text}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="section care">
+			<div class="wrap care-grid">
+				<div class="frame parallax reveal">
+					<Image
+						src={products}
+						alt="棚に並ぶREVIのホームケア化粧品"
+						widths={[640, 960, 1280]}
+						sizes="(min-width: 900px) 46vw, 100vw"
+						quality={72}
+						class="cover"
+						style="object-position: center 40%"
+					/>
+				</div>
+				<div class="care-text">
+					<p class="eyebrow reveal">Home care</p>
+					<h2 class="title reveal">施術のあとも、<br />肌の調子は日々変わる。</h2>
+					<p class="lead reveal">
+						サロンではREVIのホームケアもご案内しています。毎日の保湿と紫外線対策をあわせて、整えた肌を守るお手伝いをします。店頭の品目や価格は時期により変わります。
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="access">
+			<div class="wrap">
+				<div class="head-row">
+					<div>
+						<p class="eyebrow reveal">Access</p>
+						<h2 class="title reveal">横浜駅東口から、徒歩4分。</h2>
+					</div>
+					<p class="head-note reveal">お車の場合は、近隣のコインパーキングをご利用ください。</p>
+				</div>
+				<div class="access-grid">
+					<dl class="facts reveal">
+						<div>
+							<dt>サロン名</dt>
+							<dd>Coco salon（ココサロン）</dd>
+						</div>
+						<div>
+							<dt>住所</dt>
+							<dd>
+								<address>
+									〒220-0011<br />
+									神奈川県横浜市西区高島2-10-13<br />
+									横浜東口ビル810
+								</address>
+							</dd>
+						</div>
+						<div>
+							<dt>アクセス</dt>
+							<dd>横浜駅東口 徒歩4分<br />近隣コインパーキングあり</dd>
+						</div>
+						<div>
+							<dt>営業時間</dt>
+							<dd>10:00–19:00</dd>
+						</div>
+						<div>
+							<dt>定休日</dt>
+							<dd>祝日</dd>
+						</div>
+						<div>
+							<dt>設備</dt>
+							<dd>ベッド1台 / 個室 / 完全予約制</dd>
+						</div>
+						<div>
+							<dt>電話</dt>
+							<dd><a href={telephoneHref}>{telephoneDisplay}</a></dd>
+						</div>
+						<div>
+							<dt>お支払い</dt>
+							<dd>現金、クレジットカード、交通系IC、PayPay、QRコード</dd>
+						</div>
+					</dl>
+					<div class="map-block reveal">
+						<div class="map-frame">
+							<iframe title="Coco salonの地図" src={mapEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+						</div>
+						<a class="btn btn-outline" href={mapUrl} target="_blank" rel="noopener noreferrer">
+							<Icon name="pin" />
+							Googleマップで開く
+							<span class="sr-only">（新しいタブで開きます）</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="faq">
+			<div class="wrap">
+				<div class="head-row">
+					<div>
+						<p class="eyebrow reveal">Questions</p>
+						<h2 class="title reveal">よくあるご質問</h2>
+					</div>
+					<p class="head-note reveal">ご予約前に、よくいただく内容をまとめました。</p>
+				</div>
+				<dl class="faq-list">
+					{
+						faqs.map((item) => (
+							<div class="reveal">
+								<dt>{item.q}</dt>
+								<dd>{item.a}</dd>
+							</div>
+						))
+					}
+				</dl>
+			</div>
+		</section>
+
+		<section class="cta" id="reserve">
+			<div class="cta-card reveal">
+				<div>
+					<p class="eyebrow">Reservation</p>
+					<h2>ご予約・ご相談</h2>
+					<p class="lead">完全予約制です。ホットペッパービューティー、またはLINEからご連絡ください。</p>
+					<div class="cta-actions">
+						<a class="btn btn-white" href={reserveUrl} target="_blank" rel="noopener noreferrer">
+							ホットペッパーで予約
+							<Icon name="arrow" />
+							<span class="sr-only">（新しいタブで開きます）</span>
+						</a>
+						<a class="btn btn-outline-light" href={lineUrl} target="_blank" rel="noopener noreferrer">
+							<Icon name="chat" />
+							LINE公式アカウント
+							<span class="sr-only">（新しいタブで開きます）</span>
+						</a>
+					</div>
+				</div>
+				<div class="cta-side">
+					<Image src={logo} alt="" class="cta-logo" widths={[240, 360]} sizes="180px" />
+					<div class="cta-links">
+						<a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+							<Icon name="camera" />
+							Instagram @cocosalon.24
+							<span class="sr-only">（新しいタブで開きます）</span>
+						</a>
+						<a href={telephoneHref}>
+							<Icon name="phone" />
+							{telephoneDisplay}
+						</a>
+						<a href={mapUrl} target="_blank" rel="noopener noreferrer">
+							<Icon name="pin" />
+							横浜市西区高島2-10-13 横浜東口ビル810
+							<span class="sr-only">（新しいタブで開きます）</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="footer-inner">
+			<a class="brand" href="#top">
+				<span class="brand-name">
+					<span class="brand-en">Coco salon</span>
+					<span class="brand-ja">ココサロン</span>
+				</span>
+			</a>
+			<nav class="footer-nav" aria-label="フッター">
+				<a href="#concept">コンセプト</a>
+				<a href="#menu">メニュー</a>
+				<a href="#salon">サロン</a>
+				<a href="#flow">流れ</a>
+				<a href="#access">アクセス</a>
+				<a href="#faq">質問</a>
+				<a href="#reserve">予約</a>
+			</nav>
+			<p class="footer-meta">
+				効果には個人差があります。掲載の施術はエステティックであり、医療行為ではありません。<br />
+				© 2026 Coco salon
+			</p>
+		</div>
+	</footer>
+
+	<div class="dock">
+		<a href={telephoneHref}>
+			<Icon name="phone" />
+			電話
+		</a>
+		<a href={lineUrl} target="_blank" rel="noopener noreferrer">
+			<Icon name="chat" />
+			LINE
+			<span class="sr-only">（新しいタブで開きます）</span>
+		</a>
+		<a href={reserveUrl} target="_blank" rel="noopener noreferrer">
+			予約する
+			<span class="sr-only">（新しいタブで開きます）</span>
+		</a>
+	</div>
+
+	<script>
+		import '../scripts/motion.ts';
+	</script>
+</Layout>
