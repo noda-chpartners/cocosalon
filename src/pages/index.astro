@@ -199,8 +199,19 @@ const steps = [
 						<p class="eyebrow reveal">Menu</p>
 						<h2 class="title reveal">人気の施術</h2>
 					</div>
-					<p class="head-note reveal">気になる肌悩みに合わせてお選びください。詳細と空き状況は予約ページでご確認いただけます。</p>
+					<p class="head-note reveal">気になる肌悩みに合わせてお選びください。空き状況は予約ページでご確認いただけます。</p>
 				</div>
+				<p class="menu-latest">
+					<Icon name="camera" />
+					<span>
+						最新の料金・キャンペーンは
+						<a href={instagramUrl} target="_blank" rel="noopener noreferrer">
+							Instagram
+							<span class="sr-only">（新しいタブで開きます）</span>
+						</a>
+						でご確認ください。
+					</span>
+				</p>
 				<div class="menu-grid">
 					{
 						menus.map((item) => (

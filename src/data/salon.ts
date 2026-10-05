@@ -35,7 +35,10 @@ export const menus = [
 		tag: '',
 		name: '毛穴洗浄',
 		text: '毛穴の詰まりや余分な皮脂を洗い流し、キメを整えます。短時間で受けやすいメニューです。',
-		prices: [{ label: '一律', value: '¥8,900', amount: 8900, time: '50分' }],
+		prices: [
+			{ label: '初回', value: '¥6,980', amount: 6980, time: '50分' },
+			{ label: '通常', value: '¥8,900', amount: 8900, time: '50分' },
+		],
 	},
 	{
 		no: '03',

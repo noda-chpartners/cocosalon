@@ -792,6 +792,37 @@ a.header-reserve {
 	color: var(--ink);
 }
 
+.menu-latest {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin: 0 0 1.1rem;
+	padding: 0.95rem 1.2rem;
+	background: var(--white);
+	border: 1px solid var(--line);
+	border-radius: var(--radius);
+	color: var(--ink);
+	font-size: 0.9rem;
+	line-height: 1.7;
+}
+
+.menu-latest .icon {
+	width: 1.35rem;
+	height: 1.35rem;
+	color: var(--rose);
+}
+
+.menu-latest a {
+	color: var(--rose-deep);
+	font-weight: 500;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+.menu-latest a:hover {
+	color: var(--rose);
+}
+
 .records-track {
 	display: grid;
 	grid-auto-flow: column;
